@@ -25,20 +25,34 @@ import javax.swing.JOptionPane;
 public class direccion {
     public String direccion="", pasw="";
     
+    
+ public direccion(){
+     if(this.leerArchivoDireccion().isEmpty()||this.leerContrasenia().isEmpty()){
+         try {
+             escribirDireccion();
+         } catch (IOException ex) {
+             Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     }
+    
+    
+ }
+    
+   
       
     /**
      * Metodo que no devuelve nada.
      * Se crea el archivo pikachu.txt para almacenar la dirección ip del servidor
      */
     public void escribirDireccion() throws IOException{
-          File archivoDireccion= new File("pikachu.txt");
-    File archivoContrasenia= new File("pokebola.txt");
+          File archivoDireccion= new File("C:\\txt\\pikachu.txt");
+    File archivoContrasenia= new File("C:\\txt\\pokebola.txt");
  archivoDireccion.createNewFile();
             archivoContrasenia.createNewFile();
         BufferedWriter escribir;
         if(archivoDireccion.exists()){
             try {
-                escribir= new BufferedWriter(new FileWriter("pikachu.txt"));
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\pikachu.txt"));
                 String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
                 escribir.write(direccion);
                 escribir.close();
@@ -48,10 +62,12 @@ public class direccion {
             } catch (IOException ex) {
                 Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            archivoDireccion.createNewFile();
         }
         if(archivoContrasenia.exists()){
             try {
-                escribir = new BufferedWriter(new FileWriter("pokebola.txt"));
+                escribir = new BufferedWriter(new FileWriter("C:\\txt\\pokebola.txt"));
                String pasw=JOptionPane.showInputDialog(null,"Introduce la contraseña de tu base de datos: ");
                 escribir.write(pasw);
                 escribir.close();
@@ -61,8 +77,8 @@ public class direccion {
             } catch (IOException ex) {
                 Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(!archivoDireccion.exists()||!archivoContrasenia.exists()){
-            archivoDireccion.createNewFile();
+        }else {
+            
             archivoContrasenia.createNewFile();
         }
         
@@ -81,7 +97,7 @@ public class direccion {
         
         //this.escribirDireccion();
         try {
-            direccionip=new FileReader("pikachu.txt");
+            direccionip=new FileReader("C:\\txt\\pikachu.txt");
             br=new BufferedReader(direccionip);
             while((direccion1=br.readLine())!=null){
                 direccion2=direccion1;
@@ -112,7 +128,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("pokebola.txt");
+            direccionip=new FileReader("C:\\txt\\pokebola.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -144,14 +160,14 @@ public class direccion {
      * @throws IOException 
      */
     public void guardarUsuario(String usuario) throws IOException{
-              File archivoNombre= new File("tu.txt");
+              File archivoNombre= new File("C:\\txt\\tu.txt");
    
                 archivoNombre.createNewFile();
            // archivoContrasenia.createNewFile();
         BufferedWriter escribir;
         if(archivoNombre.exists()){
             try {
-                escribir= new BufferedWriter(new FileWriter("tu.txt"));
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\tu.txt"));
                 //String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
                 escribir.write(usuario);
                 escribir.close();
@@ -168,19 +184,81 @@ public class direccion {
     }
     
     /**
-     * Metodo para guardar el id de un reporte a modificar
-     * @param idReporte
+     * Metodo para guardar el rol del usuario
+     * @param usuario
      * @throws IOException 
      */
-    public void guardaridReporte(String idReporte) throws IOException{
-              File archivoNombre= new File("grimes.txt");
+    public void guardarRol(String usuario) throws IOException{
+              File archivoNombre= new File("C:\\txt\\poe.txt");
    
                 archivoNombre.createNewFile();
            // archivoContrasenia.createNewFile();
         BufferedWriter escribir;
         if(archivoNombre.exists()){
             try {
-                escribir= new BufferedWriter(new FileWriter("grimes.txt"));
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\poe.txt"));
+                //String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
+                escribir.write(usuario);
+                escribir.close();
+                
+            } catch (IOException ex) {
+                Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(!archivoNombre.exists()){
+            archivoNombre.createNewFile();
+            
+        }
+        
+        
+    }
+    
+    
+     public String leerRol(){
+       //  File archivoDireccion= new File("pikachu.txt");
+        String contrasenia="";
+        BufferedReader br= null;
+        FileReader direccionip=null;
+       // this.escribirDireccion();
+        try {
+            direccionip=new FileReader("C:\\txt\\poe.txt");
+            br=new BufferedReader(direccionip);
+            String aux="";
+            while((aux=br.readLine())!=null){
+                contrasenia=aux;
+            }
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(null!=direccionip){
+                try {
+                    direccionip.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return contrasenia;
+        
+    }
+    
+    /**
+     * Metodo para guardar el id de un reporte a modificar
+     * @param idReporte
+     * @throws IOException 
+     */
+    public void guardaridReporte(String idReporte) throws IOException{
+              File archivoNombre= new File("C:\\txt\\grimes.txt");
+   
+                archivoNombre.createNewFile();
+           // archivoContrasenia.createNewFile();
+        BufferedWriter escribir;
+        if(archivoNombre.exists()){
+            try {
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\grimes.txt"));
                 //String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
                 escribir.write(idReporte);
                 escribir.close();
@@ -203,7 +281,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("tu.txt");
+            direccionip=new FileReader("C:\\txt\\tu.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -236,7 +314,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("grimes.txt");
+            direccionip=new FileReader("C:\\txt\\grimes.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -268,7 +346,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("poliza.txt");
+            direccionip=new FileReader("C:\\txt\\poliza.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -298,7 +376,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("persona.txt");
+            direccionip=new FileReader("C:\\txt\\persona.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -328,7 +406,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("asesor.txt");
+            direccionip=new FileReader("C:\\txt\\asesor.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -358,7 +436,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("tiempo.txt");
+            direccionip=new FileReader("C:\\txt\\tiempo.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -389,7 +467,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("servicio.txt");
+            direccionip=new FileReader("C:\\txt\\servicio.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -423,7 +501,7 @@ public class direccion {
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("materiales.txt");
+            direccionip=new FileReader("C:\\txt\\materiales.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -450,14 +528,14 @@ public class direccion {
      
      
       public void guardarCliente(String usuario) throws IOException{
-              File archivoNombre= new File("idInicio.txt");
+              File archivoNombre= new File("C:\\txt\\idInicio.txt");
    
                 archivoNombre.createNewFile();
            // archivoContrasenia.createNewFile();
         BufferedWriter escribir;
         if(archivoNombre.exists()){
             try {
-                escribir= new BufferedWriter(new FileWriter("idInicio.txt"));
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\idInicio.txt"));
                 //String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
                 escribir.write(usuario);
                 escribir.close();
@@ -489,15 +567,15 @@ public class direccion {
      */
     public void guardarReporte(String fecha, String horaInicio, String poliza, String persona,
             String otroAsesor, String tiempoTrabajo, String ServiciosRealizados, String materiales) throws IOException{
-         File fecha1= new File("fecha.txt");
-         File horaInicio1= new File("horaInicio.txt");
+         File fecha1= new File("C:\\txt\\fecha.txt");
+         File horaInicio1= new File("C:\\txt\\horaInicio.txt");
          //File idCliente1= new File("idInicio.txt");
-         File poliza1= new File("poliza.txt");
-         File person1= new File("persona.txt");
-         File asesor= new File("asesor.txt");
-         File tiempo= new File("tiempo.txt");
-         File servicio= new File("servicio.txt");
-         File materiales1= new File("materiales.txt");
+         File poliza1= new File("C:\\txt\\poliza.txt");
+         File person1= new File("C:\\txt\\persona.txt");
+         File asesor= new File("C:\\txt\\asesor.txt");
+         File tiempo= new File("C:\\txt\\tiempo.txt");
+         File servicio= new File("C:\\txt\\servicio.txt");
+         File materiales1= new File("C:\\txt\\materiales.txt");
          
          fecha1.createNewFile();
          horaInicio1.createNewFile();
@@ -512,14 +590,14 @@ public class direccion {
          BufferedWriter escribir;
          
          if(fecha1.exists()){
-             escribir = new BufferedWriter(new FileWriter("fecha.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\fecha.txt"));
              escribir.write(fecha);
              escribir.close();
          }else{
              fecha1.createNewFile();
          }
          if(horaInicio1.exists()){
-             escribir = new BufferedWriter(new FileWriter("horaInicio.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\horaInicio.txt"));
              escribir.write(horaInicio);
              escribir.close();
          }else{
@@ -535,42 +613,42 @@ public class direccion {
          }
          */
          if(poliza1.exists()){
-             escribir = new BufferedWriter(new FileWriter("poliza.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\poliza.txt"));
              escribir.write(poliza);
              escribir.close();
          }else{
              poliza1.createNewFile();
          }
          if(person1.exists()){
-             escribir = new BufferedWriter(new FileWriter("persona.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\persona.txt"));
              escribir.write(persona);
              escribir.close();
          }else{
              person1.createNewFile();
          }
          if(asesor.exists()){
-             escribir = new BufferedWriter(new FileWriter("asesor.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\asesor.txt"));
              escribir.write(otroAsesor);
              escribir.close();
          }else{
              asesor.createNewFile();
          }
          if(tiempo.exists()){
-             escribir = new BufferedWriter(new FileWriter("tiempo.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\tiempo.txt"));
              escribir.write(tiempoTrabajo);
              escribir.close();
          }else{
              tiempo.createNewFile();
          }
          if(servicio.exists()){
-             escribir = new BufferedWriter(new FileWriter("servicio.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\servicio.txt"));
              escribir.write(ServiciosRealizados);
              escribir.close();
          }else{
              servicio.createNewFile();
          }
          if(materiales1.exists()){
-             escribir = new BufferedWriter(new FileWriter("materiales.txt"));
+             escribir = new BufferedWriter(new FileWriter("C:\\txt\\materiales.txt"));
              escribir.write(materiales);
              escribir.close();
          }else{
@@ -589,7 +667,7 @@ public String leerfecha(){
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("fecha.txt");
+            direccionip=new FileReader("C:\\txt\\fecha.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -620,7 +698,8 @@ public String horaInicio(){
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("horaInicio.txt");
+            direccionip=new FileReader(""
+                    + "C:\\txt\\horaInicio.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -653,7 +732,7 @@ public String horaInicio(){
         FileReader direccionip=null;
        // this.escribirDireccion();
         try {
-            direccionip=new FileReader("idInicio.txt");
+            direccionip=new FileReader("C:\\txt\\idInicio.txt");
             br=new BufferedReader(direccionip);
             String aux="";
             while((aux=br.readLine())!=null){
@@ -676,7 +755,66 @@ public String horaInicio(){
         }
         return contrasenia;
 }
+    /**
+     * Metodo para guardar el nombre del cliente
+     * @param cliente descripción del cliente
+     * @throws IOException 
+     */
+    public void getcliente(String cliente) throws IOException{
+        File archivoNombre= new File("C:\\txt\\cliente.txt");
+   
+                archivoNombre.createNewFile();
+           // archivoContrasenia.createNewFile();
+        BufferedWriter escribir;
+        if(archivoNombre.exists()){
+            try {
+                escribir= new BufferedWriter(new FileWriter("C:\\txt\\cliente.txt"));
+                //String direccion= JOptionPane.showInputDialog(null,"Introduce la dirección de tu base de datos: ");
+                escribir.write(cliente);
+                escribir.close();
+                
+            } catch (IOException ex) {
+                Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(!archivoNombre.exists()){
+            archivoNombre.createNewFile();
+            
+        }
+    }
     
+    /**
+     * Método para obtener el nombre o descripción del cliente
+     * @return un string con la descripción del cliente
+     */
+    public String setcliente(){
+     String contrasenia="";
+        BufferedReader br= null;
+        FileReader direccionip=null;
+       // this.escribirDireccion();
+        try {
+            direccionip=new FileReader("C:\\txt\\cliente.txt");
+            br=new BufferedReader(direccionip);
+            String aux="";
+            while((aux=br.readLine())!=null){
+                contrasenia=aux;
+            }
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(null!=direccionip){
+                try {
+                    direccionip.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(direccion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return contrasenia;
+}
     
     
     
